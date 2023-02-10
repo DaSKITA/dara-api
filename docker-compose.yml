@@ -1,0 +1,44 @@
+version: '3'
+services:
+
+    mongo:
+        image: docker.io/library/mongo:4.4.18
+        hostname: api-mongo
+        environment:
+            MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+            MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+            MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+        restart: on-failure
+        volumes:
+            - ./api_db/volumes/mongo:/data/db:z
+            - ./api_db/mongodb.conf:/etc/mongodb.conf:z
+            - ./api_db/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:z
+        command: --config /etc/mongodb.conf
+        expose:
+            - 27017
+
+    web:
+        build:
+            context: .
+            dockerfile: dockerfiles/python310/Dockerfile
+        depends_on:
+          - 'mongo'
+        expose:
+            - 80
+        labels:
+            - "traefik.enable=true"
+            - "traefik.http.routers.fastapi.rule=Host(`v2202301191442214869.powersrv.de`)"
+            - "traefik.http.routers.fastapi.tls=true"
+            - "traefik.http.routers.fastapi.tls.certresolver=letsencrypt"
+
+    traefik:
+        image: traefik:v2.2
+        ports:
+            - 80:80
+            - 443:443
+        volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock:ro"
+            - "./traefik-public-certificates:/certificates"
+            - "./traefik.toml:/etc/traefik/traefik.toml"
+        labels:
+            - "traefik.enable=true"
