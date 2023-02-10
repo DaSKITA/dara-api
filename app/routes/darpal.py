@@ -48,9 +48,9 @@ async def get_item(
     id: str,
     db: AsyncIOMotorClient = Depends(get_database)
 ) -> Any:
-    return await darpal_crud.read(db=db, filter={"controllerId": controller_id})
+    return await darpal_crud.read(db=db, filter={"id": id})
 
-
+"""
 @router.post(
     '/',
     response_model=ItemInDB,
@@ -64,7 +64,7 @@ async def post_item(
 
 ) -> Any:
     # Check whether we have already a controller in db
-    controller_from_db = await darpal_crud.read(db=db, filter={"controllerId": item.controllerId})
+    controller_from_db = await darpal_crud.read(db=db, filter={"id": item._id})
     if controller_from_db != None:
         # Update existing item in db
         controller_from_db = await darpal_crud.update(db=db, db_doc_id=str(controller_from_db.id), obj_in=item)
@@ -77,24 +77,25 @@ async def post_item(
 
 
 @router.delete(
-    '/{controller_id}',
+    '/{id}',
     response_model=ItemInDB,
     summary="Delete an item",
     description="Delete an item"
 )
 async def delete_item(
-    controller_id: str,
+    id: str,
     db: AsyncIOMotorClient = Depends(get_database),
     current_user: User = Depends(get_current_active_user),
 ) -> Any:
 
-    controller_from_db = await darpal_crud.read(db=db, filter={"controllerId": controller_id})
+    controller_from_db = await darpal_crud.read(db=db, filter={"id": id})
 
     if controller_from_db != None:
         return await darpal_crud.delete(db=db, db_doc_id=str(controller_from_db.id))
     else:
         raise HTTPException(status_code=404, detail="Controller not found")
 
+"""
 
 """
 @router.get(
