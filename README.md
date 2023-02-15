@@ -3,7 +3,10 @@
 This is a process repository containing and exposing [DARPAL](https://github.com/DaSKITA/darpal) specifications for well-established service providers.
 To access the currently running API and see some example documents, please click [here](https://v2202301191442214869.powersrv.de/docs#/darpal/get_item_multi_darpal__get).
 
-The Data Access Request Assistant (DARA) consists of this process repository (DARA-API), a browser-extension as automation engine ([DARA-Extension](https://github.com/DaSKITA/dara-extension)), and a frontend ([DARA-Frontend](https://github.com/DaSKITA/dara-frontend)). 
+The Data Access Request Assistant (DARA) consists of 
+* this process repository (DARA-API), 
+* a browser-extension as automation engine ([DARA-Extension](https://github.com/DaSKITA/dara-extension)), and 
+* a frontend ([DARA-Frontend](https://github.com/DaSKITA/dara-frontend))
 
 
 This process repository is based on FastAPI.
