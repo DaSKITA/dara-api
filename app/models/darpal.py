@@ -119,14 +119,13 @@ class Api(BaseModel):
 
 class RequestInterfaceItem(BaseModel):
     manual: Optional[Manual] = Field(
-        None, description='Describes the manual request process'
+        description='Describes the manual request process'
     )
     webinterface: Optional[Webinterface] = Field(
-        None,
         description='Describes the semi-automatic request process using a webinterface',
     )
     api: Optional[Api] = Field(
-        None, description='Describes the fully automated request process using an API'
+        description='Describes the fully automated request process using an API'
     )
 
 
