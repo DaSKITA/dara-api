@@ -45,3 +45,4 @@ else:
 database_name = MONGO_INITDB_DATABASE
 
 controller_collection: str = "controllers"
+darpal_collection: str = "darpal"

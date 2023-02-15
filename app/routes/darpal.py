@@ -1,5 +1,5 @@
 
-from typing import List
+from typing import List, Union
 from fastapi import APIRouter, Depends, Body, HTTPException
 from app.models.darpal import *
 from app.crud.darpal import darpal_crud
@@ -50,32 +50,29 @@ async def get_item(
 ) -> Any:
     return await darpal_crud.read(db=db, filter={"id": id})
 
-"""
+
 @router.post(
     '/',
-    response_model=ItemInDB,
+    response_model=Union[List[ItemInDB], ItemInDB],
     summary="Submit a new item or update an existing",
     description="Submit a new item"
 )
 async def post_item(
     current_user: User = Depends(get_current_active_user),
-    item: ItemBase = Body(...),
+    item: Union[ItemBase, List[ItemBase]] = Body(...),
     db: AsyncIOMotorClient = Depends(get_database),
 
 ) -> Any:
-    # Check whether we have already a controller in db
-    controller_from_db = await darpal_crud.read(db=db, filter={"id": item._id})
-    if controller_from_db != None:
-        # Update existing item in db
-        controller_from_db = await darpal_crud.update(db=db, db_doc_id=str(controller_from_db.id), obj_in=item)
 
-    else:
-        # Create a new item and submit it to the db
+    if isinstance(item, list):
+        controller_from_db = await darpal_crud.create_multi(db=db, doc_in=item)
+        return controller_from_db
+    
+    if isinstance(item, ItemBase):
         controller_from_db = await darpal_crud.create(db=db, doc_in=item)
+        return controller_from_db
 
-    return controller_from_db
-
-
+"""
 @router.delete(
     '/{id}',
     response_model=ItemInDB,

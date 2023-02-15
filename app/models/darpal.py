@@ -10,6 +10,7 @@ from app.models.dbmodel import DateTimeModelMixin, DBModelMixin, PyObjectId
 class Meta(BaseModel):
     class Config:
         extra = Extra.allow
+        allow_population_by_field_name = True
 
     name: str = Field(
         ...,
@@ -23,7 +24,7 @@ class Meta(BaseModel):
         examples=[1],
         title='Version',
     )
-    field_hash: constr(min_length=64, max_length=64) = Field(
+    hash: constr(min_length=64, max_length=64) = Field(
         ...,
         alias='_hash',
         description='The hash is based on one SHA256 calculation of the document.',

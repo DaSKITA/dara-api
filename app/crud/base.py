@@ -1,5 +1,6 @@
 from typing import Any, Dict, Generic, List, Optional, Type, TypeVar, Union
 import datetime
+from unittest import result
 
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
@@ -85,6 +86,30 @@ class CRUDBase(Generic[CreateSchemaType, UpdateSchemaType, DBSchemaType]):
         db_doc_inserted = await coll.find_one({"_id": db_obj.inserted_id})
 
         return self.model(**db_doc_inserted)
+    
+    async def create_multi(
+        self,
+        db: Any,
+        *,
+        doc_in: List[CreateSchemaType]
+    ) -> List[DBSchemaType]:
+
+        coll = db[self.database_name][self.collection_name]
+        doc_in_data = jsonable_encoder(doc_in)
+        result = []
+        for entry in doc_in_data:
+            now = datetime.datetime.now()
+            db_obj = self.model(
+                **entry,
+                createdAt=now,
+                updatedAt=now
+            )  # type: ignore
+            # if isinstance(doc_in, dict):...
+            db_obj = await coll.insert_one(db_obj.dict())
+            db_doc_inserted = await coll.find_one({"_id": db_obj.inserted_id})
+            result.append(self.model(**db_doc_inserted))
+
+        return result
 
     async def update(
         self,

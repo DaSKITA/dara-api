@@ -20,3 +20,4 @@ db.auth('admin', 'SuperSecret')
 db = db.getSiblingDB('api')
 
 db.createCollection('controllers');
+db.createCollection('darpal');
