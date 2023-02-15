@@ -8,7 +8,8 @@ The Data Access Request Assistant (DARA) consists of this process repository (DA
 
 This process repository is based on FastAPI.
 In the following, we kept the original FastAPI readme
-__
+---
+# FastAPI
 ## Quickstart
 
 ### Run the app in containers
