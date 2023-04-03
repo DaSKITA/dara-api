@@ -8,6 +8,8 @@ The Data Access Request Assistant (DARA) consists of
 * a browser-extension as automation engine ([DARA-Extension](https://github.com/DaSKITA/dara-extension)), and 
 * a frontend ([DARA-Frontend](https://github.com/DaSKITA/dara-frontend))
 
+As a starting point, we provide 15 DARPAL specifications, both in a running API [here](https://v2202301191442214869.powersrv.de/docs#/darpal/get_item_multi_darpal__get) and via a [github repository](https://github.com/DaSKITA/darpal-documents).
+
 
 This process repository is based on FastAPI.
 In the following, we kept the original FastAPI readme.
