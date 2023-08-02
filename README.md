@@ -14,8 +14,6 @@ As a starting point, we provide 15 DARPAL specifications, both in a running API 
 This process repository is based on FastAPI.
 In the following, we kept the original FastAPI readme.
 
----
-# FastAPI
 ## Quickstart
 
 ### Run the app in containers
