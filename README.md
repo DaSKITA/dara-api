@@ -48,8 +48,6 @@ If you want to run the app locally, without using Docker, then:
     source .venv/bin/activate
     ```
 
-* Go to the folder created by cookie-cutter (default is **fastapi-nano**).
-
 * Install the dependencies. Run:
 
     ```bash
