@@ -27,7 +27,7 @@ services:
             - 80
         labels:
             - "traefik.enable=true"
-            - "traefik.http.routers.fastapi.rule=Host(`v2202301191442214869.powersrv.de`)"
+            - "traefik.http.routers.fastapi.rule=Host(`${DOMAIN_NAME}`)"
             - "traefik.http.routers.fastapi.tls=true"
             - "traefik.http.routers.fastapi.tls.certresolver=letsencrypt"
 

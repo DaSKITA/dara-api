@@ -5,10 +5,9 @@ from dotenv import load_dotenv
 from starlette.datastructures import CommaSeparatedStrings, Secret
 from databases import DatabaseURL
 
+load_dotenv(".env")
 
 API_V1_STR = "/api"
-
-load_dotenv(".env")
 
 MAX_CONNECTIONS_COUNT = int(os.getenv("MAX_CONNECTIONS_COUNT", 10))
 MIN_CONNECTIONS_COUNT = int(os.getenv("MIN_CONNECTIONS_COUNT", 10))

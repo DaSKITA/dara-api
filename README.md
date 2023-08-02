@@ -22,16 +22,12 @@ In the following, we kept the original FastAPI readme.
 
 * Clone the repo and navigate to the root folder.
 
+* Set the necessary enviroment variables as seen in `.env-example`. You can use the contents of the file as base for your local `.env`.
+
 * To run the app using Docker, make sure you've got [Docker](https://www.docker.com/) and [Docker Compose V2](https://docs.docker.com/compose/cli-command/) installed on your system. From the project's root dirctory, to run the full setup with traefik proxy execute:
 
     ```bash
     docker compose up -d
-    ```
-
-* For development we also included a db-only docker-compose file, which can be executed via
-
-    ```bash
-    docker compose -f docker-compose.db-only.yml up -d
     ```
 
 ### Or, run the app locally
@@ -43,7 +39,7 @@ If you want to run the app locally, without using Docker, then:
 * Create a virtual environment. Here I'm using Python's built-in venv in a Unix system. Run:
 
     ```bash
-    python3.10 -m venv .venv
+    python -m venv .venv
     ```
 
 * Activate the environment. Run:
@@ -58,6 +54,14 @@ If you want to run the app locally, without using Docker, then:
 
     ```bash
     pip install -r requirements.txt && pip install -r requirements-dev.txt
+    ```
+
+* Set the necessary enviroment variables as seen in [`.env-example`](./.env-example). You can use the contents of the file as base for your local `.env`.
+
+* Start the db-only docker-compose file via:
+
+    ```bash
+    docker compose -f docker-compose.db-only.yml up -d
     ```
 
 * Start the app. Run:
